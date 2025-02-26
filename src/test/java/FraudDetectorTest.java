@@ -8,11 +8,8 @@ import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
 public class FraudDetectorTest {
-    private FraudDetector fraudDetector;
-    @BeforeEach
-    void setUp(){
-        fraudDetector = new FraudDetector();
-    }
+    private FraudDetector fraudDetector = new FraudDetector();
+
     @Test
     public void givenName_whenIsFraud_thenTrue(){
         //given
@@ -34,5 +31,18 @@ public class FraudDetectorTest {
         //then
         assertFalse(result);
     }
+
+    @Test
+    public void givenAmount_whenIsFraud_thenTrue(){
+        //given
+        Trader trader = new Trader("www", "Minsk");
+        Transaction transaction = new Transaction(trader, 1000002);
+        //when
+        boolean result = fraudDetector.isFraud(transaction);
+        //then
+        assertTrue(result);
+    }
+
+
 
 }
