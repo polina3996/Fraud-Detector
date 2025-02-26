@@ -1,6 +1,6 @@
 package org.example;
 
-class Transaction {
+public class Transaction {
 
     private Trader trader;
     private int amount;
