@@ -66,4 +66,40 @@ public class FraudDetectorTest {
         assertTrue(result);
     }
 
+    @Test
+    public void givenWrongCountryCorrectAmount_whenIsFraud_thenFalse(){
+        //given
+        Trader trader = new Trader("Aksk", "Minsk", "Germany");
+        Transaction transaction = new Transaction(trader, 3);
+        //when
+        boolean result = fraudDetector.isFraud(transaction);
+        //then
+        assertFalse(result);
+    }
+
+    @Test
+    public void givenWrongAmountCorrectCountry_whenIsFraud_thenFalse(){
+        //given
+        Trader trader = new Trader("Aksk", "Minsk", "Belarus");
+        Transaction transaction = new Transaction(trader, 1001);
+        //when
+        boolean result = fraudDetector.isFraud(transaction);
+        //then
+        assertFalse(result);
+    }
+
+    @Test
+    public void givenWrongCountryAndAmount_whenIsFraud_thenTrue(){
+        //given
+        Trader trader = new Trader("Pokemon", "Minsk", "Germany");
+        Transaction transaction = new Transaction(trader, 1001);
+        //when
+        boolean result = fraudDetector.isFraud(transaction);
+        //then
+        assertTrue(result);
+    }
+
+
+
+
 }
