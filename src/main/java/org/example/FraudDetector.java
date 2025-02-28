@@ -3,6 +3,7 @@ package org.example;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FraudDetector {
     rule1FraudDetector rule1 = new rule1FraudDetector();
@@ -13,12 +14,18 @@ public class FraudDetector {
     ArrayList<FraudRule> ruleList = new ArrayList<>(Arrays.asList(rule1, rule2, rule3, rule4, rule5));
 
     FraudDetectionResult isFraud(Transaction t){
-        for (FraudRule rule: ruleList){
-            FraudDetectionResult fraudDetectionResult = new FraudDetectionResult(rule.isFraud(t), rule.getRuleName());
-            if(fraudDetectionResult.getFraud()) {
-                return fraudDetectionResult;
-            }
-        }
+       return ruleList.stream()
+                .filter(rule -> rule.isFraud(t))
+                .findFirst()
+               .map(this::createFraudResult)
+               .orElse(createNormalResult());
+    }
+
+    public FraudDetectionResult createFraudResult(FraudRule rule){
+        return new FraudDetectionResult(true, rule.getRuleName());
+       }
+
+    public FraudDetectionResult createNormalResult(){
         return new FraudDetectionResult(false, null);
-        }
+    }
 }
