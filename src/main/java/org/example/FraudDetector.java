@@ -11,7 +11,9 @@ public class FraudDetector {
             return true;
         } else if (Objects.equals(transaction.getTrader().getCity(), "Synney")){
             return true;
-        }
+        } else if (Objects.equals(transaction.getTrader().getCountry(), "Jamaica")){
+        return true;
+    }
         return false;
     }
 }

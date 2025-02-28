@@ -11,9 +11,9 @@ public class FraudDetectorTest {
     private FraudDetector fraudDetector = new FraudDetector();
 
     @Test
-    public void givenNameAndCityAndAmount_whenIsFraud_thenFalse(){
+    public void givenNameAndCityAndAmountAndCountry_whenIsFraud_thenFalse(){
         //given
-        Trader trader = new Trader("Aksk", "Minsk");
+        Trader trader = new Trader("Aksk", "Minsk", "Belarus");
         Transaction transaction = new Transaction(trader, 3);
         //when
         boolean result = fraudDetector.isFraud(transaction);
@@ -24,7 +24,7 @@ public class FraudDetectorTest {
     @Test
     public void givenWrongName_whenIsFraud_thenTrue(){
         //given
-        Trader trader = new Trader("Pokemon", "Minsk");
+        Trader trader = new Trader("Pokemon", "Minsk", "Belarus");
         Transaction transaction = new Transaction(trader, 3);
         //when
         boolean result = fraudDetector.isFraud(transaction);
@@ -36,7 +36,7 @@ public class FraudDetectorTest {
     @Test
     public void givenWrongAmount_whenIsFraud_thenTrue(){
         //given
-        Trader trader = new Trader("www", "Minsk");
+        Trader trader = new Trader("Aksk", "Minsk", "Belarus");
         Transaction transaction = new Transaction(trader, 1000002);
         //when
         boolean result = fraudDetector.isFraud(transaction);
@@ -47,7 +47,18 @@ public class FraudDetectorTest {
     @Test
     public void givenWrongCity_whenIsFraud_thenTrue(){
         //given
-        Trader trader = new Trader("Pokemon", "Synney");
+        Trader trader = new Trader("Aksk", "Synney", "Belarus");
+        Transaction transaction = new Transaction(trader, 3);
+        //when
+        boolean result = fraudDetector.isFraud(transaction);
+        //then
+        assertTrue(result);
+    }
+
+    @Test
+    public void givenWrongCountry_whenIsFraud_thenTrue(){
+        //given
+        Trader trader = new Trader("Aksk", "Minsk", "Jamaica");
         Transaction transaction = new Transaction(trader, 3);
         //when
         boolean result = fraudDetector.isFraud(transaction);
