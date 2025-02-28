@@ -21,6 +21,17 @@ public class rule4FraudDetectorTest {
     }
 
     @Test
+    public void givenWrong2Country_whenIsFraud_thenTrue(){
+        //given
+        Trader trader = new Trader("Aksk", "Minsk", "Australia");
+        Transaction transaction = new Transaction(trader, 3);
+        //when
+        boolean result = fraudDetector.isFraud(transaction);
+        //then
+        assertTrue(result);
+    }
+
+    @Test
     public void givenCountry_whenIsFraud_thenFalse(){
         //given
         Trader trader = new Trader("Aksk", "Minsk", "Belarus");
