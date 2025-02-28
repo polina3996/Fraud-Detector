@@ -11,18 +11,7 @@ public class FraudDetectorTest {
     private FraudDetector fraudDetector = new FraudDetector();
 
     @Test
-    public void givenName_whenIsFraud_thenTrue(){
-        //given
-        Trader trader = new Trader("Pokemon", "Minsk");
-        Transaction transaction = new Transaction(trader, 3);
-        //when
-        boolean result = fraudDetector.isFraud(transaction);
-        //then
-        assertTrue(result);
-    }
-
-    @Test
-    public void givenName_whenIsFraud_thenFalse(){
+    public void givenNameAndCityAndAmount_whenIsFraud_thenFalse(){
         //given
         Trader trader = new Trader("Aksk", "Minsk");
         Transaction transaction = new Transaction(trader, 3);
@@ -33,7 +22,19 @@ public class FraudDetectorTest {
     }
 
     @Test
-    public void givenAmount_whenIsFraud_thenTrue(){
+    public void givenWrongName_whenIsFraud_thenTrue(){
+        //given
+        Trader trader = new Trader("Pokemon", "Minsk");
+        Transaction transaction = new Transaction(trader, 3);
+        //when
+        boolean result = fraudDetector.isFraud(transaction);
+        //then
+        assertTrue(result);
+    }
+
+
+    @Test
+    public void givenWrongAmount_whenIsFraud_thenTrue(){
         //given
         Trader trader = new Trader("www", "Minsk");
         Transaction transaction = new Transaction(trader, 1000002);
@@ -43,6 +44,15 @@ public class FraudDetectorTest {
         assertTrue(result);
     }
 
-
+    @Test
+    public void givenWrongCity_whenIsFraud_thenTrue(){
+        //given
+        Trader trader = new Trader("Pokemon", "Synney");
+        Transaction transaction = new Transaction(trader, 3);
+        //when
+        boolean result = fraudDetector.isFraud(transaction);
+        //then
+        assertTrue(result);
+    }
 
 }
