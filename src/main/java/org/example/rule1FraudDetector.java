@@ -10,4 +10,9 @@ public class rule1FraudDetector implements FraudRule {
         }
         return false;
     }
+
+    @Override
+    public String getRuleName(){
+        return "rule1";
+    }
 }

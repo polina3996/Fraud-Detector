@@ -11,4 +11,9 @@ public class rule3FraudDetector implements FraudRule{
         return false;
     }
 
+    @Override
+    public String getRuleName(){
+        return "rule3";
+    }
+
 }
